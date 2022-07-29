@@ -8,6 +8,16 @@
   height: 100vh;
 }
 
+.header {
+  height: 53px;
+  width: 100%;
+  vertical-align: middle;
+  white-space: nowrap;
+  align-items: center;
+  display: flex;
+  text-align: center;
+}
+
 .main {
   padding: 5rem 0;
   flex: 1;
