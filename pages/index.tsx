@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
+import Header from "./components/header";
 
 export default function Home() {
   return (
@@ -10,11 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.header}>
-        <h1 style={{ letterSpacing: "1px", textAlign: "left" }}>
-          <span style={{ fontWeight: 250 }}>News App</span>
-        </h1>
-      </header>
+      <Header />
       <main className={styles.main}>
         <p>Main</p>
       </main>
