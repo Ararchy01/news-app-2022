@@ -1,3 +1,4 @@
+import Main from "./components/main";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Article from "./components/article";
@@ -5,14 +6,13 @@ import Header from "./components/header";
 
 export default function Home(props) {
   return (
-    <div className={styles.container}>
+    <Main>
       <Head>
         <title>News App 2022</title>
         <meta name="description" content="Daichi Araki Portfolio 2022" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
       <div className={styles.main}>
         <Article title="headlines" articles={props.topArticles} />
       </div>
@@ -21,7 +21,7 @@ export default function Home(props) {
           <p>Footer</p>
         </a>
       </footer>
-    </div>
+    </Main>
   );
 }
 
