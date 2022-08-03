@@ -2,7 +2,7 @@ import Main from "./components/main";
 import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Article from "./components/article";
-import Header from "./components/header";
+import Nav from "./components/nav";
 
 export default function Home(props) {
   return (
@@ -13,8 +13,16 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.main}>
-        <Article title="headlines" articles={props.topArticles} />
+      <div className={styles.contents}>
+        <div className={styles.nav}>
+          <nav>
+            <Nav />
+          </nav>
+        </div>
+        <div className={styles.blank} />
+        <div className={styles.main}>
+          <Article title="headlines" articles={props.topArticles} />
+        </div>
       </div>
       <footer className={styles.footer}>
         <a href="https://github.com/Ararchy01" target="_blank">

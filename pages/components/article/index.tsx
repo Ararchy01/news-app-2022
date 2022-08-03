@@ -17,10 +17,7 @@ const Article: React.FC<Props> = ({ articles, title }) => {
             <article className={styles.article__main}>
               <div className={styles.article__title}>
                 <p>{article.title}</p>
-                <p className={styles.article__time}>
-                  {time}
-                  時間前
-                </p>
+                <p className={styles.article__time}>{time}h ago</p>
               </div>
               {article.urlToImage && (
                 <img
