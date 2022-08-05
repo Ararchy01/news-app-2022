@@ -19,10 +19,17 @@ const Article: React.FC<Props> = ({ articles, title }) => {
                 <p>{article.title}</p>
                 <p className={styles.article__time}>{time}h ago</p>
               </div>
-              {article.urlToImage && (
+              {article.urlToImage ? (
                 <img
                   key={index}
                   src={article.urlToImage}
+                  className={styles.article__img}
+                  alt={`${article.title} image`}
+                />
+              ) : (
+                <img
+                  key={index}
+                  src={`/youtube.png`}
                   className={styles.article__img}
                   alt={`${article.title} image`}
                 />
