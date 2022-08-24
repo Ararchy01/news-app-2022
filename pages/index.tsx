@@ -3,6 +3,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.scss";
 import Article from "./components/article";
 import Nav from "./components/nav";
+import { GetStaticProps } from "next";
 import Weather from "./components/weather";
 
 export default function Home(props) {
@@ -25,7 +26,7 @@ export default function Home(props) {
           <Article title="headlines" articles={props.topArticles} />
         </div>
         <div className={styles.aside}>
-          <Weather weatherNews={props.weatherNews} />
+          <Weather />
         </div>
       </div>
       <footer className={styles.footer}>
@@ -37,7 +38,7 @@ export default function Home(props) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
   // News
   const pageSize = 10;
   const topRes = await fetch(
@@ -46,20 +47,9 @@ export const getStaticProps = async () => {
   const topJson = await topRes.json();
   const topArticles = topJson?.articles;
 
-  // Weather
-  const lat = 35.4122;
-  const lon = 139.413;
-  const exclude = "hourly,minutely";
-  const weatherRes = await fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=${exclude}&appid=eb25271bc29c0b35d4dfaf63a3772e72`
-  );
-  const weatherJson = await weatherRes.json();
-  const weatherNews = weatherJson;
-
   return {
     props: {
       topArticles,
-      weatherNews,
     },
     revalidate: 60 * 10,
   };
