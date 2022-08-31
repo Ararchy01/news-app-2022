@@ -15,14 +15,16 @@ const Weather = () => {
         }&units=metric&exclude=${"hourly,minutely"}&appid=eb25271bc29c0b35d4dfaf63a3772e72`
       );
       const weather = await weatherRes.json();
+      console.log(weather);
       setWeather(weather);
     });
-  });
+  }, []);
   if (weather) {
     const currentWeatherMain = weather.current.weather[0].main;
     const currentWeatherTemp = weather.current.temp;
     const currentWeatherIcon =
       weather.current.weather[0].icon.slice(0, 2) + "d";
+    const location = weather.timezone;
     const today = new Date();
 
     return (
@@ -32,7 +34,7 @@ const Weather = () => {
             <h1>Weather</h1>
           </div>
           <section className={styles.weather}>
-            <h1>Tokyo</h1>
+            <h1>{location}</h1>
             <div className={styles.weather__main}>
               <div className={styles.weather__top}>
                 <div className={styles.weather__heading}>
@@ -102,7 +104,14 @@ const Weather = () => {
   } else {
     return (
       <>
-        <p>No Geolocation</p>
+        <Image
+          src={`/loading.gif`}
+          alt="loading"
+          loading="eager"
+          width={41}
+          height={41}
+          priority
+        />
       </>
     );
   }
