@@ -1,7 +1,7 @@
 import styles from "./index.module.scss";
 import moment from "moment";
 
-const Article: React.FC<Props> = ({ articles, title }) => {
+const Article = ({ articles, title }) => {
   return (
     <section className={styles.article}>
       <div className={styles.article__heading}>

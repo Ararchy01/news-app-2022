@@ -18,6 +18,7 @@ const Weather = () => {
       console.log(weather);
       setWeather(weather);
     });
+    console.log(Date.now());
   }, []);
   if (weather) {
     const currentWeatherMain = weather.current.weather[0].main;
