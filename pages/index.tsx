@@ -23,10 +23,10 @@ export default function Home(props) {
         </div>
         <div className={styles.blank} />
         <div className={styles.main}>
-          <Article title="headlines" articles={props.topArticles} />
+          <Article title="headlines" articles={props.articles} />
         </div>
         <div className={styles.aside}>
-          <Weather />
+          <Weather weatherData={props.weather} />
         </div>
       </div>
       <footer className={styles.footer}>
@@ -40,16 +40,18 @@ export default function Home(props) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   // News
-  const pageSize = 10;
-  const topRes = await fetch(
-    `https://newsapi.org/v2/top-headlines?country=ca&pageSize=${pageSize}&apiKey=f941d1c7cef6412e9a3c8d39f6aa3688`
-  );
-  const topJson = await topRes.json();
-  const topArticles = topJson?.articles;
+  const newsData = await fetch("http://localhost/news");
+  const newsJson = await newsData.json();
+  const articles = newsJson?.articles;
+
+  // Weather
+  const weatherData = await fetch(`http://localhost/weather`);
+  const weather = await weatherData.json();
 
   return {
     props: {
-      topArticles,
+      articles,
+      weather,
     },
     revalidate: 60 * 10,
   };
