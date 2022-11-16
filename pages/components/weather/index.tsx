@@ -90,7 +90,7 @@ const Weather = (weatherData) => {
     return (
       <>
         <Image
-          src={`/weather/loading.gif`}
+          src={`/loading.gif`}
           loading="eager"
           width={200}
           height={200}

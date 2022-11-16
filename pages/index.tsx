@@ -29,23 +29,22 @@ export default function Home(props) {
           <Weather weatherData={props.weather} />
         </div>
       </div>
-      <footer className={styles.footer}>
-        <a href="https://github.com/Ararchy01" target="_blank">
-          <p>Footer</p>
-        </a>
-      </footer>
     </Main>
   );
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   // News
-  const newsData = await fetch("http://localhost/news");
+  const newsData = await fetch("https://ararchy0621.npkn.net/news", {
+    headers: { "napkin-account-api-key": process.env.API_KEY },
+  });
   const newsJson = await newsData.json();
   const articles = newsJson?.articles;
 
   // Weather
-  const weatherData = await fetch(`http://localhost/weather`);
+  const weatherData = await fetch("https://ararchy0621.npkn.net/weather", {
+    headers: { "napkin-account-api-key": process.env.API_KEY },
+  });
   const weather = await weatherData.json();
 
   return {
