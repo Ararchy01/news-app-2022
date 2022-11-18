@@ -5,13 +5,7 @@ const Article = ({ articles, title }) => {
   return (
     <section className={styles.article}>
       <div className={styles.article__heading}>
-        {!title || title === undefined ? (
-          <h1>News</h1>
-        ) : (
-          <h1>
-            {title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()}
-          </h1>
-        )}
+        {!title || title === undefined ? <h1>News</h1> : <h1>{title}</h1>}
       </div>
       {articles ? (
         articles.map((article, index) => {

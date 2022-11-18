@@ -24,7 +24,7 @@ function Topic(props) {
         </div>
         <div className={styles.blank} />
         <div className={styles.main} style={{ marginRight: "10%" }}>
-          <Article title={props.title} articles={props.topicArticles} />
+          <Article title={props.title} articles={props.articles} />
         </div>
       </div>
     </Main>
@@ -39,16 +39,21 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const topicRes = await fetch(
-    `https://newsapi.org/v2/top-headlines?country=ca&category=${params.id}&country=ca&apiKey=f941d1c7cef6412e9a3c8d39f6aa3688`
+  const newsData = await fetch(
+    `https://ararchy0621.npkn.net/news?category=${params.category}`,
+    {
+      headers: { "napkin-account-api-key": process.env.API_KEY },
+    }
   );
-  const topicJson = await topicRes.json();
-  const topicArticles = await topicJson.articles;
+  const newsJson = await newsData.json();
+  const articles = newsJson?.articles;
 
-  const title = params.id;
+  const title =
+    params.category.charAt(0).toUpperCase() +
+    params.category.slice(1).toLowerCase();
 
   return {
-    props: { topicArticles, title },
+    props: { articles, title },
     revalidate: 60 * 10,
   };
 }

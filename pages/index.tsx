@@ -23,7 +23,7 @@ export default function Home(props) {
         </div>
         <div className={styles.blank} />
         <div className={styles.main}>
-          <Article title="headlines" articles={props.articles} />
+          <Article title="Top News" articles={props.articles} />
         </div>
         <div className={styles.aside}>
           <Weather weatherData={props.weather} />
@@ -33,25 +33,33 @@ export default function Home(props) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   // News
-  const newsData = await fetch("https://ararchy0621.npkn.net/news", {
-    headers: { "napkin-account-api-key": process.env.API_KEY },
-  });
-  const newsJson = await newsData.json();
-  const articles = newsJson?.articles;
+  try {
+    const newsData = await fetch("https://ararchy0621.npkn.net/news", {
+      headers: {
+        "napkin-account-api-key": process.env.API_KEY,
+      },
+    });
+    const newsJson = await newsData.json();
+    const articles = newsJson?.articles;
+    const weatherData = await fetch("https://ararchy0621.npkn.net/weather", {
+      headers: {
+        "napkin-account-api-key": process.env.API_KEY,
+      },
+    });
+    const weather = await weatherData.json();
+
+    return {
+      props: {
+        articles,
+        weather,
+      },
+      revalidate: 60 * 10,
+    };
+  } catch (error) {
+    console.log(error.message);
+  }
 
   // Weather
-  const weatherData = await fetch("https://ararchy0621.npkn.net/weather", {
-    headers: { "napkin-account-api-key": process.env.API_KEY },
-  });
-  const weather = await weatherData.json();
-
-  return {
-    props: {
-      articles,
-      weather,
-    },
-    revalidate: 60 * 10,
-  };
 };

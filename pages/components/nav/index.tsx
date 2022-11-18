@@ -4,9 +4,9 @@ import Image from "next/image";
 
 const TOPICS = [
   {
-    icon: "topStories",
+    icon: "topNews",
     path: "/",
-    title: "Top stories",
+    title: "Top News",
   },
   {
     icon: "business",
