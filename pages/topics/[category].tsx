@@ -4,6 +4,7 @@ import Article from "../components/article";
 import Nav from "../components/nav";
 import Main from "../components/main";
 import styles from "../../styles/Home.module.scss";
+import Contents from "../components/contents";
 
 function Topic(props) {
   const router = useRouter();
@@ -16,7 +17,12 @@ function Topic(props) {
       <Head>
         <title>NewsApp - {props.title}</title>
       </Head>
-      <div className={styles.contents}>
+      <Contents
+        title={props.title}
+        articles={props.articles}
+        weather={props.weather}
+      />
+      {/* <div className={styles.contents}>
         <div className={styles.nav}>
           <nav>
             <Nav />
@@ -26,7 +32,7 @@ function Topic(props) {
         <div className={styles.main} style={{ marginRight: "10%" }}>
           <Article title={props.title} articles={props.articles} />
         </div>
-      </div>
+      </div> */}
     </Main>
   );
 }
@@ -39,23 +45,34 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const newsData = await fetch(
-    `https://ararchy0621.npkn.net/news?category=${params.category}`,
-    {
-      headers: { "napkin-account-api-key": process.env.API_KEY },
-    }
-  );
-  const newsJson = await newsData.json();
-  const articles = newsJson?.articles;
+  try {
+    const newsData = await fetch(
+      `https://ararchy0621.npkn.net/news?category=${params.category}`,
+      {
+        headers: { "napkin-account-api-key": process.env.API_KEY },
+      }
+    );
+    const newsJson = await newsData.json();
+    const articles = newsJson?.articles;
 
-  const title =
-    params.category.charAt(0).toUpperCase() +
-    params.category.slice(1).toLowerCase();
+    const weatherData = await fetch("https://ararchy0621.npkn.net/weather", {
+      headers: {
+        "napkin-account-api-key": process.env.API_KEY,
+      },
+    });
+    const weather = await weatherData.json();
 
-  return {
-    props: { articles, title },
-    revalidate: 60 * 10,
-  };
+    const title =
+      params.category.charAt(0).toUpperCase() +
+      params.category.slice(1).toLowerCase();
+
+    return {
+      props: { title, articles, weather },
+      revalidate: 60 * 10,
+    };
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 export default Topic;
