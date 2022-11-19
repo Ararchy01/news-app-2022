@@ -1,9 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Article from "../components/article";
-import Nav from "../components/nav";
 import Main from "../components/main";
-import styles from "../../styles/Home.module.scss";
 import Contents from "../components/contents";
 
 function Topic(props) {
@@ -22,17 +19,6 @@ function Topic(props) {
         articles={props.articles}
         weather={props.weather}
       />
-      {/* <div className={styles.contents}>
-        <div className={styles.nav}>
-          <nav>
-            <Nav />
-          </nav>
-        </div>
-        <div className={styles.blank} />
-        <div className={styles.main} style={{ marginRight: "10%" }}>
-          <Article title={props.title} articles={props.articles} />
-        </div>
-      </div> */}
     </Main>
   );
 }
