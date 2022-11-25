@@ -11,7 +11,6 @@ export default function Home(props) {
         <meta name="description" content="Daichi Araki Portfolio 2022" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Contents
         title="Top News"
         articles={props.articles}
@@ -22,7 +21,6 @@ export default function Home(props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // News
   try {
     const newsData = await fetch("https://ararchy0621.npkn.net/news", {
       headers: {
@@ -44,11 +42,9 @@ export const getStaticProps: GetStaticProps = async () => {
         articles,
         weather,
       },
-      revalidate: 60 * 10,
+      revalidate: 60,
     };
   } catch (error) {
     console.log(error.message);
   }
-
-  // Weather
 };

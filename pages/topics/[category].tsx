@@ -54,7 +54,7 @@ export async function getStaticProps({ params }) {
 
     return {
       props: { title, articles, weather },
-      revalidate: 60 * 10,
+      revalidate: 60,
     };
   } catch (error) {
     console.log(error.message);

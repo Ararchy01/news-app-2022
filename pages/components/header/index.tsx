@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <section className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.header__icon}>
+        {/* <div className={styles.header__icon}>
           <Image
             src="/menu.png"
             alt="menu icon"
@@ -15,8 +15,8 @@ const Header = () => {
             height={35}
             priority
           />
-        </div>
-        <h1 style={{ letterSpacing: "1px", textAlign: "left" }}>
+        </div> */}
+        <h1 style={{ letterSpacing: "1px" }}>
           <Link href="/">
             <a>
               <span style={{ fontWeight: 250 }}>News</span>
