@@ -1,11 +1,15 @@
 import styles from "./index.module.scss";
 import moment from "moment";
 
-const Article = ({ articles, title }) => {
+const Article = ({ articles, category }) => {
   return (
     <section className={styles.article}>
       <div className={styles.article__heading}>
-        {!title || title === undefined ? <h1>News</h1> : <h1>{title}</h1>}
+        {!category || category === undefined ? (
+          <h1>News</h1>
+        ) : (
+          <h1>{category}</h1>
+        )}
       </div>
       {articles ? (
         articles.map((article, index) => {

@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Main from "../components/main";
 import Contents from "../components/contents";
+import { getNews, getWeather } from "../functions/api";
 
 function Topic(props) {
   const router = useRouter();
@@ -12,10 +13,10 @@ function Topic(props) {
   return (
     <Main>
       <Head>
-        <title>NewsApp - {props.title}</title>
+        <title>NewsApp - {props.category}</title>
       </Head>
       <Contents
-        title={props.title}
+        category={props.category}
         articles={props.articles}
         weather={props.weather}
       />
@@ -31,34 +32,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  try {
-    const newsData = await fetch(
-      `https://ararchy0621.npkn.net/news?category=${params.category}`,
-      {
-        headers: { "napkin-account-api-key": process.env.API_KEY },
-      }
-    );
-    const newsJson = await newsData.json();
-    const articles = newsJson?.articles;
+  const articles = await getNews(`?category=${params.category}`);
+  const weather = await getWeather();
+  const category =
+    params.category.charAt(0).toUpperCase() +
+    params.category.slice(1).toLowerCase();
 
-    const weatherData = await fetch("https://ararchy0621.npkn.net/weather", {
-      headers: {
-        "napkin-account-api-key": process.env.API_KEY,
-      },
-    });
-    const weather = await weatherData.json();
-
-    const title =
-      params.category.charAt(0).toUpperCase() +
-      params.category.slice(1).toLowerCase();
-
-    return {
-      props: { title, articles, weather },
-      revalidate: 60,
-    };
-  } catch (error) {
-    console.log(error.message);
-  }
+  return {
+    props: { category, articles, weather },
+    revalidate: 60,
+  };
 }
 
 export default Topic;

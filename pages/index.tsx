@@ -2,6 +2,7 @@ import Main from "./components/main";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import Contents from "./components/contents";
+import { getNews, getWeather } from "./functions/api";
 
 export default function Home(props) {
   return (
@@ -12,7 +13,7 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Contents
-        title="Top News"
+        category={props.category}
         articles={props.articles}
         weather={props.weather}
       />
@@ -21,30 +22,11 @@ export default function Home(props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const newsData = await fetch("https://ararchy0621.npkn.net/news", {
-      headers: {
-        "napkin-account-api-key": process.env.API_KEY,
-      },
-    });
-    const newsJson = await newsData.json();
-    const articles = newsJson?.articles;
-
-    const weatherData = await fetch("https://ararchy0621.npkn.net/weather", {
-      headers: {
-        "napkin-account-api-key": process.env.API_KEY,
-      },
-    });
-    const weather = await weatherData.json();
-
-    return {
-      props: {
-        articles,
-        weather,
-      },
-      revalidate: 60,
-    };
-  } catch (error) {
-    console.log(error.message);
-  }
+  const articles = await getNews("");
+  const weather = await getWeather();
+  const category = "Top News";
+  return {
+    props: { category, articles, weather },
+    revalidate: 60,
+  };
 };

@@ -4,13 +4,13 @@ import Weather from "../weather";
 import styles from "../../../styles/Home.module.scss";
 
 type Props = {
-  title: string;
+  category: string;
   articles: Object[];
   weather: Object[];
 };
 
 export default function Contents(props: Props) {
-  const { title } = props;
+  const { category } = props;
   const { articles } = props;
   const { weather } = props;
   return (
@@ -22,7 +22,7 @@ export default function Contents(props: Props) {
       </div>
       <div className={styles.blank} />
       <div className={styles.main}>
-        <Article title={title} articles={articles} />
+        <Article category={category} articles={articles} />
       </div>
       <div className={styles.aside}>
         <Weather weatherData={weather} />
