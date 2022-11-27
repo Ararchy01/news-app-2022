@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Main from "../components/main";
 import Contents from "../components/contents";
-import { getNews, getWeather } from "../functions/api";
+import { getNews, getWeather } from "../../functions/api";
 
 function Topic(props) {
   const router = useRouter();

@@ -2,7 +2,7 @@ import Main from "./components/main";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import Contents from "./components/contents";
-import { getNews, getWeather } from "./functions/api";
+import { getNews, getWeather } from "../functions/api";
 
 export default function Home(props) {
   return (
