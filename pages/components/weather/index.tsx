@@ -1,9 +1,15 @@
 import Image from "next/image";
+import { Weather } from "../../../types";
 import styles from "../weather/index.module.scss";
 const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const Weather = (weatherData) => {
-  const weather = weatherData.weatherData;
+type Props = {
+  weatherData?: Weather;
+};
+
+const WeatherPage = (props: Props) => {
+  const { weatherData } = props;
+  const weather = weatherData;
   if (weather) {
     const currentWeatherMain = weather.current.weather[0].main;
     const currentWeatherTemp = weather.current.temp;
@@ -101,4 +107,4 @@ const Weather = (weatherData) => {
   }
 };
 
-export default Weather;
+export default WeatherPage;

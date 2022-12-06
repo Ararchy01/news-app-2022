@@ -1,7 +1,14 @@
 import styles from "./index.module.scss";
 import moment from "moment";
+import { Article } from "../../../types";
 
-const Article = ({ articles, category }) => {
+type Props = {
+  category: string;
+  articles: Article[];
+};
+
+const ArticlePage = (props: Props) => {
+  const { category, articles } = props;
   return (
     <section className={styles.article}>
       <div className={styles.article__heading}>
@@ -49,45 +56,4 @@ const Article = ({ articles, category }) => {
   );
 };
 
-type Props = {
-  articles?: [
-    article: {
-      author: string;
-      title: string;
-      publishedAt: string;
-      url: string;
-      urlToImage: string;
-    }
-  ];
-  title?: string;
-  weatherNews?: {
-    current: {
-      temp: number;
-      clouds: number;
-      weather: [
-        conditions: {
-          main: string;
-          icon: string;
-        }
-      ];
-    };
-    daily: [
-      date: {
-        dt: number;
-        clouds: number;
-        temp: {
-          min: number;
-          max: number;
-        };
-        weather: [
-          conditions: {
-            id: number;
-            icon: string;
-          }
-        ];
-      }
-    ];
-  };
-};
-
-export default Article;
+export default ArticlePage;

@@ -1,18 +1,17 @@
-import Article from "../article";
+import ArticlePage from "../article";
 import Nav from "../nav";
-import Weather from "../weather";
+import WeatherPage from "../weather";
 import styles from "../../../styles/Home.module.scss";
+import { Article, Weather } from "../../../types";
 
 type Props = {
   category: string;
-  articles: Object[];
-  weather: Object[];
+  articles: Article[];
+  weather: Weather;
 };
 
 export default function Contents(props: Props) {
-  const { category } = props;
-  const { articles } = props;
-  const { weather } = props;
+  const { category, articles, weather } = props;
   return (
     <div className={styles.contents}>
       <div className={styles.nav}>
@@ -22,10 +21,10 @@ export default function Contents(props: Props) {
       </div>
       <div className={styles.blank} />
       <div className={styles.main}>
-        <Article category={category} articles={articles} />
+        <ArticlePage category={category} articles={articles} />
       </div>
       <div className={styles.aside}>
-        <Weather weatherData={weather} />
+        <WeatherPage weatherData={weather} />
       </div>
     </div>
   );
