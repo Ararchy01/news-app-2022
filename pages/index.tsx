@@ -3,8 +3,10 @@ import Head from "next/head";
 import { GetStaticProps } from "next";
 import Contents from "./components/contents";
 import { getNews, getWeather } from "../functions/api";
+import { MainProps } from "../types";
 
-export default function Home(props) {
+export default function Home(props: MainProps) {
+  const { articles, weather, category } = props;
   return (
     <Main>
       <Head>
@@ -12,11 +14,7 @@ export default function Home(props) {
         <meta name="description" content="Daichi Araki Portfolio 2022" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Contents
-        category={props.category}
-        articles={props.articles}
-        weather={props.weather}
-      />
+      <Contents category={category} articles={articles} weather={weather} />
     </Main>
   );
 }
